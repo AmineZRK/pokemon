@@ -1,18 +1,27 @@
 import React, { Component, useState} from 'react';
 import axios from 'axios';
 import PokemonCarte from './PokemonCarte';
+import ClipLoader from "react-spinners/ClipLoader";
+import { css } from "@emotion/react";
+
+const override = css`
+  display: block;
+  margin: 25% auto;
+  border-color: red;
+`;
 
 export default class PokemonList extends Component {
   state={
-    pokemon: []
+    pokemon: null
   }
 
 
   componentDidMount() {
-    axios.get('https://raw.githubusercontent.com/fanzeyi/pokemon.json/master/pokedex.json').then(res => {
-      const pokemon=res.data;
-      this.setState({pokemon})
+    axios.get('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0').then(res => {
+      const pokemon=res.data['results'] ;
+      this.setState({pokemon});
     });
+    console.log(this.state.pokemon)
     
   }
   render() {
@@ -23,11 +32,14 @@ export default class PokemonList extends Component {
             {this.state.pokemon.map(poke =>(
               <PokemonCarte 
                 key={poke.id}
-                name={poke.name.english}
+                id={poke.name}
+                name={poke.name}
               />
             ))}
           </div>
-        ) : (<h1>Pokemon</h1>)}
+          
+        ) : (<ClipLoader color={'red'} css={override} size={150} />)}
+        
       </>
     )
   }
