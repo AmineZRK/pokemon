@@ -30,7 +30,10 @@ export default function Detail() {
     let { id } = useParams();
     const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${id}/`;
     const[state,setState]=useState({});
-    let { hp, attack, defense, speed, specialAttack, specialDefense } = '';
+    const[description,setDescription]=useState('');
+    const[weight, setWeight]=useState();
+    const[height, setHeight]=useState();
+    let { hp, attack, defense, speed, specialAttack, specialDefense,des } = '';
     useEffect(() => {
         const fetchData = async () => {
           const result = await axios(pokemonUrl);
@@ -67,6 +70,7 @@ export default function Detail() {
             specialAttack,
             specialDefense
           });
+          
         };
     
         fetchData();
@@ -99,13 +103,9 @@ export default function Detail() {
                                             color: 'white'
                                         }}
                                     >
-                                    {t.type.name
-                                        .toLowerCase()
-                                        .split(' ')
-                                        .map(s => s.charAt(0).toUpperCase() + s.substring(1))
-                                        .join(' ')}
+                                    {t.type.name}
                                     </span>
-                                ))):<h2>loading..</h2>}
+                                ))):(<h2>...</h2>)}
                             </div> 
                         </div>
                     </div>
@@ -118,133 +118,154 @@ export default function Detail() {
                                 /> 
                         </div>
                         <div className="col-md-9">
-                <div className="row align-items-center">
-                  <div className={`col-12 col-md-${poke.statTitleWidth}`}>
-                    HP
-                  </div>
-                  <div className={`col-12 col-md-${poke.statBarWidth}`}>
-                    <div className="progress">
-                      <div
-                        className="progress-bar "
-                        role="progressbar"
-                        style={{
-                          width: `${state.hp}%`
-                        }}
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                      >
-                        <small>{state.hp}</small>
-                      </div>
+                            <div className="row align-items-center">
+                                <div className={`col-12 col-md-${poke.statTitleWidth}`}>
+                                    HP
+                                </div>
+                                <div className={`col-12 col-md-${poke.statBarWidth}`}>
+                                    <div className="progress">
+                                        <div
+                                            className="progress-bar "
+                                            role="progressbar"
+                                            style={{
+                                            width: `${state.hp}%`
+                                            }}
+                                            aria-valuenow="25"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                        >
+                                            <small>{state.hp}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row align-items-center">
+                                <div className={`col-12 col-md-${poke.statTitleWidth}`}>
+                                    Attack
+                                </div>
+                                <div className={`col-12 col-md-${poke.statBarWidth}`}>
+                                    <div className="progress">
+                                        <div
+                                            className="progress-bar"
+                                            role="progressbar"
+                                            style={{
+                                            width: `${state.attack}%`,
+                                            }}
+                                            aria-valuenow="25"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                        >
+                                            <small>{state.attack}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row align-items-center">
+                                <div className={`col-12 col-md-${poke.statTitleWidth}`}>
+                                    Defense
+                                </div>
+                            <div className={`col-12 col-md-${poke.statBarWidth}`}>
+                                    <div className="progress">
+                                        <div
+                                            className="progress-bar "
+                                            role="progressbar"
+                                            style={{
+                                            width: `${state.defense}%`
+                                            }}
+                                            aria-valuenow="25"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                        >
+                                            <small>{state.defense}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row align-items-center">
+                                <div className={`col-12 col-md-${poke.statTitleWidth}`}>
+                                    Speed
+                                </div>
+                            <div className={`col-12 col-md-${poke.statBarWidth}`}>
+                                    <div className="progress">
+                                        <div
+                                            className="progress-bar"
+                                            role="progressbar"
+                                            style={{
+                                            width: `${state.speed}%`
+                                            }}
+                                            aria-valuenow="25"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                        >
+                                            <small>{state.speed}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row align-items-center">
+                                <div className={`col-12 col-md-${poke.statTitleWidth}`}>
+                                    Sp Atk
+                                </div>
+                            <div className={`col-12 col-md-${poke.statBarWidth}`}>
+                                    <div className="progress">
+                                        <div
+                                            className="progress-bar "
+                                            role="progressbar"
+                                            style={{
+                                            width: `${state.specialAttack}%`
+                                            }}
+                                            aria-valuenow={state.specialAttack}
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                        >
+                                            <small>{state.specialAttack}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row align-items-center">
+                                <div className={`col-12 col-md-${poke.statTitleWidth}`}>
+                                    Sp Def
+                                </div>
+                                <div className={`col-12 col-md-${poke.statBarWidth}`}>
+                                    <div className="progress">
+                                        <div
+                                            className="progress-bar "
+                                            role="progressbar"
+                                            style={{
+                                            width: `${state.specialDefense}%`
+                                            }}
+                                            aria-valuenow={state.specialDefense}
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                        >
+                                            <small>{state.specialDefense}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
-                <div className="row align-items-center">
-                  <div className={`col-12 col-md-${poke.statTitleWidth}`}>
-                    Attack
-                  </div>
-                  <div className={`col-12 col-md-${poke.statBarWidth}`}>
-                    <div className="progress">
-                      <div
-                        className="progress-bar"
-                        role="progressbar"
-                        style={{
-                          width: `${state.attack}%`,
-                        }}
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                      >
-                        <small>{state.attack}</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="row align-items-center">
-                  <div className={`col-12 col-md-${poke.statTitleWidth}`}>
-                    Defense
-                  </div>
-                  <div className={`col-12 col-md-${poke.statBarWidth}`}>
-                    <div className="progress">
-                      <div
-                        className="progress-bar "
-                        role="progressbar"
-                        style={{
-                          width: `${state.defense}%`
-                        }}
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                      >
-                        <small>{state.defense}</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="row align-items-center">
-                  <div className={`col-12 col-md-${poke.statTitleWidth}`}>
-                    Speed
-                  </div>
-                  <div className={`col-12 col-md-${poke.statBarWidth}`}>
-                    <div className="progress">
-                      <div
-                        className="progress-bar"
-                        role="progressbar"
-                        style={{
-                          width: `${state.speed}%`
-                        }}
-                        aria-valuenow="25"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                      >
-                        <small>{state.speed}</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="row align-items-center">
-                  <div className={`col-12 col-md-${poke.statTitleWidth}`}>
-                    Sp Atk
-                  </div>
-                  <div className={`col-12 col-md-${poke.statBarWidth}`}>
-                    <div className="progress">
-                      <div
-                        className="progress-bar "
-                        role="progressbar"
-                        style={{
-                          width: `${state.specialAttack}%`
-                        }}
-                        aria-valuenow={state.specialAttack}
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                      >
-                        <small>{state.specialAttack}</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="row align-items-center">
-                  <div className={`col-12 col-md-${poke.statTitleWidth}`}>
-                    Sp Def
-                  </div>
-                  <div className={`col-12 col-md-${poke.statBarWidth}`}>
-                    <div className="progress">
-                      <div
-                        className="progress-bar "
-                        role="progressbar"
-                        style={{
-                          width: `${state.specialDefense}%`
-                        }}
-                        aria-valuenow={state.specialDefense}
-                        aria-valuemin="0"
-                        aria-valuemax="100"
-                      >
-                        <small>{state.specialDefense}</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                </div>
+                <div className="card-body">
+                    <h5 class="card-title text-center">Profile</h5>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <div className="row">
+                                <div className="col-6">
+                                    <h6 className="float-right">Height:</h6>
+                                </div>
+                                <div className="col-6">
+                                    <h6 className="float-left">{poke.height} cm</h6>
+                                </div>
+                                <div className="col-6">
+                                    <h6 className="float-right">Weight:</h6>
+                                </div>
+                                <div className="col-6">
+                                    <h6 className="float-left">{poke.weight} g</h6>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
