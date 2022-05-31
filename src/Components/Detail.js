@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from 'axios';
-import bootstrap from "bootstrap";
-import ClipLoader from "react-spinners/ClipLoader";
 
 const TYPE_COLORS = {
     bug: 'B1C12E',
@@ -30,10 +28,8 @@ export default function Detail() {
     let { id } = useParams();
     const pokemonUrl = `https://pokeapi.co/api/v2/pokemon/${id}/`;
     const[state,setState]=useState({});
-    const[description,setDescription]=useState('');
-    const[weight, setWeight]=useState();
-    const[height, setHeight]=useState();
-    let { hp, attack, defense, speed, specialAttack, specialDefense,des } = '';
+    let { hp, attack, defense, speed, specialAttack, specialDefense } = '';
+
     useEffect(() => {
         const fetchData = async () => {
           const result = await axios(pokemonUrl);
@@ -75,6 +71,8 @@ export default function Detail() {
     
         fetchData();
       },[]);
+
+
 
     useEffect(()=>{
         setImageURL(`https://img.pokemondb.net/artwork/${id}.jpg`);
@@ -253,13 +251,13 @@ export default function Detail() {
                         <div className="col-md-6">
                             <div className="row">
                                 <div className="col-6">
-                                    <h6 className="float-right">Height:</h6>
+                                    <h6 className="float-right">Taille:</h6>
                                 </div>
                                 <div className="col-6">
                                     <h6 className="float-left">{poke.height} cm</h6>
                                 </div>
                                 <div className="col-6">
-                                    <h6 className="float-right">Weight:</h6>
+                                    <h6 className="float-right">Poids:</h6>
                                 </div>
                                 <div className="col-6">
                                     <h6 className="float-left">{poke.weight} g</h6>

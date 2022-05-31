@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import NavBar from './Components/NavBar';
 import './App.css';
 import Dashboard from './Components/Dashboard';
-import { BrowserRouter, Switch,Route } from 'react-router-dom';
+import { Switch,Route } from 'react-router-dom';
 import Detail from './Components/Detail';
 function App() {
   return (
